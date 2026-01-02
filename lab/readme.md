@@ -188,3 +188,7 @@ public class Main {
     }
 }
 ```
+
+```java
+//Q6.
+```
