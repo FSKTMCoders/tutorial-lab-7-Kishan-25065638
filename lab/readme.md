@@ -45,7 +45,6 @@ public class Main{
 
 ```java
 //Q2.
-
 import java.util.Scanner;
 import java.net.URL;
 import java.io.InputStream;
@@ -92,5 +91,37 @@ public class Main{
 
     }
 }
+```
+```java
+//Q3.
+import java.io.PrintWriter;
+import java.io.FileOutputStream;    
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Scanner;
 
+public class Main{
+    public static void main(String[] args){
+        try{
+            Scanner sc= new Scanner(new FileInputStream("text file.txt"));
+            PrintWriter pw= new PrintWriter(new FileOutputStream("reverse.txt"));
+            while(sc.hasNextLine()){
+                String line=sc.nextLine(); // read a line say : "Hello"
+                for (int i=line.length()-1;i>=0;i--){ //i=4,3,2,1,0
+                    pw.print(line.charAt(i)); //o,l,l,e,H
+                }
+                pw.print("\n");
+            }
+            pw.close();
+            sc.close();
+        }
+        catch(FileNotFoundException e){
+            System.out.println("File not found: "+ e);
+        }
+        catch(IOException e){
+            System.out.println("An error occurred: "+ e);
+        }
+    }
+}
 ```
