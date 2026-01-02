@@ -59,4 +59,33 @@ public class Main {
 
 ```java
 //Q1 (b):
+import java.util.Scanner;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+
+public class Main {
+    public static void main(String[] args) {
+        try{
+            Scanner keyboard= new Scanner(new FileInputStream("integer.txt"));
+            int num=keyboard.nextInt();
+            int max=num;
+            while(keyboard.hasNextInt()){
+                System.out.println(num);
+                if(num>max){
+                    max=num;
+                }
+                num=keyboard.nextInt();
+            }
+            System.out.println(num);
+            if(num>max){
+                max=num;
+            }
+            System.out.println("The largest integer is: "+ max);
+            keyboard.close();
+        }
+        catch(FileNotFoundException e){
+            System.out.println("An error occurred: "+ e);
+        }
+    }
+}
 ```
