@@ -125,3 +125,36 @@ public class Main{
     }
 }
 ```
+
+```java
+//Q4.
+import java.util.Scanner;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+public class Main{
+    public static void main(String[] args){
+        try{
+            Scanner sc= new Scanner(new FileInputStream("text file.txt"));
+            int charCount=0;
+            int wordCount=0;
+            int lineCount=0;
+            while(sc.hasNextLine()){
+                String line=sc.nextLine();
+                System.out.println(line);
+
+                lineCount++;
+                charCount += line.length(); 
+                String[] words = line.split(" ");
+                wordCount += words.length;
+            }
+            System.out.println("\n"+"Number of characters: " + charCount);
+            System.out.println("Number of words: " + wordCount);
+            System.out.println("Number of lines: " + lineCount);
+            sc.close();
+        }
+        catch(FileNotFoundException e){
+            System.out.println("An error occurred: "+ e);
+        }
+    }
+}
+```
