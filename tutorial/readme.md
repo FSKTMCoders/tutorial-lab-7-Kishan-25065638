@@ -33,6 +33,30 @@ QUESTIONS:
 3. Write a program that convert a sentence into binary number (ASCII code 8 bit) and store it in a text file named data.txt. Then, read from the text file and display the sentence.
 ```
 ```java
-//Q1:
+//Q1 (a):
+import java.util.Random;
+import java.io.PrintWriter;
+import java.io.IOException;
+import java.io.FileOutputStream;
+public class Main {
+    public static void main(String[] args) {
+        try{
+            PrintWriter pw= new PrintWriter(new FileOutputStream("integer.txt"));
+            Random r= new Random();
+            for(int i=0; i<10; i++){
+                int num=r.nextInt(1001);
+                pw.println(num);
+                System.out.println("Generated number: "+num);
+            }
+            pw.close();
+        }
+        catch(IOException e){
+            System.out.println("An error occurred: "+e);
+        }
+    }
+}
+```
 
+```java
+//Q1 (b):
 ```
