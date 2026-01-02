@@ -42,3 +42,55 @@ public class Main{
     }
 }
 ```
+
+```java
+//Q2.
+
+import java.util.Scanner;
+import java.net.URL;
+import java.io.InputStream;
+import java.net.URLConnection;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.FileOutputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+
+
+public class Main{
+    public static void main(String[] args){
+        try {
+            URL u = new URL("http://fsktm.um.edu.my");
+            URLConnection cnn = u.openConnection();
+            InputStream stream = cnn.getInputStream();
+            Scanner in = new Scanner(stream);
+            PrintWriter pw = new PrintWriter(new FileOutputStream("index.htm"));
+            while(in.hasNextLine()){ //while the webiste has next line
+                String line = in.nextLine(); //line is line read from the website. starting from first line to last line.
+                pw.println(line); //writes the current line into the text file
+            }
+            in.close();
+            pw.close();
+        }
+        catch (IOException e) {
+            System.out.println("IO Error:" + e.getMessage());
+        }
+        try{
+            Scanner inp=new Scanner(new FileInputStream("index.htm"));
+            while(inp.hasNextLine()){
+                String line=inp.nextLine();
+                System.out.println(line);
+            }
+            inp.close();
+        }
+        catch(FileNotFoundException e){
+            System.out.println("File not found: " + e.getMessage());
+        }
+        catch(IOException e){
+            System.out.println("IO Error: " + e.getMessage());
+        }   
+
+    }
+}
+
+```
