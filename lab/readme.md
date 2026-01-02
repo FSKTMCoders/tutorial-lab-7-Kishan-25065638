@@ -158,3 +158,33 @@ public class Main{
     }
 }
 ```
+
+```java
+//Q5.
+import java.io.ObjectInputStream;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        try{
+            ObjectInputStream ois=new ObjectInputStream(new FileInputStream("person.dat"));
+            int totalRecords=ois.readInt();
+            for(int i=0;i<totalRecords;i++){
+                String name=ois.readUTF();
+                int age=ois.readInt();
+                char gender=ois.readChar();
+                System.out.println("Name: "+name+", Age: "+age+", Gender: "+gender);
+            }
+        }
+        catch(FileNotFoundException e){
+            System.out.println("File not found: "+e);
+        }
+        catch(IOException e){
+            System.out.println("An error occurred: "+e);   
+        }
+    }
+}
+```
