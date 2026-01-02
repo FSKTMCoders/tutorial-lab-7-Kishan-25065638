@@ -94,9 +94,7 @@ public class Main {
 //Q1 (c):
 import java.util.Random;
 import java.io.ObjectOutputStream;
-import java.io.ObjectInputStream;
 import java.io.FileOutputStream;
-import java.io.FileInputStream;
 import java.io.IOException;
 
 public class Main {
@@ -119,4 +117,32 @@ public class Main {
 
 ```java
 //Q1 (d)
+import java.io.ObjectInputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
+public class Main {
+    public static void main(String[] args) {
+        try{
+            ObjectInputStream ois=new ObjectInputStream(new FileInputStream("integer.dat"));
+            int sum=0;
+            for(int i=0;i<10;i++){
+                int num=ois.readInt();
+                System.out.println(num);
+                sum+=num;
+            }
+            ois.close();
+            double average=sum/10.0;
+            System.out.println("Average: "+average);
+            
+        }
+        catch(FileNotFoundException e){
+            System.out.println("An error occurred: "+e);
+        }
+        catch(IOException e){
+            System.out.println("An error occurred: "+e);
+        }
+    }
+}
 ```
