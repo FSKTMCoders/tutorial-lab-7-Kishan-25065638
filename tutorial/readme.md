@@ -25,8 +25,7 @@ QUESTIONS:
   a.close();
 
   d.
-  ObjectOutputStream o = new ObjectOutputStream (new
-  FileOutputStream("data.dat"));
+  ObjectOutputStream o = new ObjectOutputStream (new FileOutputStream("data.dat"));
   o.print('A');
   o.close();
 
@@ -145,4 +144,47 @@ public class Main {
         }
     }
 }
+```
+
+```
+Q2.
+  a.given: PrintWriter out = new PrintWriter(new FileOutputStream("d:\data\matrix.txt"));
+  a.corrected: PrintWriter out = new PrintWriter(new FileOutputStream("d:\\data\\matrix.txt"));
+
+  b.given:
+  try {
+    PrintWriter out = new PrintWriter(new FileOutputStream("data.txt"));
+    out.close();
+    }
+   catch (FileNotFoundException e) {
+    System.out.println("Problem with file output");
+    } 
+  b.corrected:
+  try {
+    PrintWriter out = new PrintWriter(new FileOutputStream("data.txt"));
+    out.close();
+    }
+   catch (IOException e) {
+    System.out.println("Problem with file output");
+    }
+  
+  c.given:
+  int num;
+  Scanner a = new Scanner(new FileInputStream("data.dat"));
+  num = a.readInt();
+  a.close();
+  c.corrected:
+  int num;
+  Scanner a = new Scanner(new FileInputStream("data.dat"));
+  num = a.nextInt();
+  a.close();
+  
+  d.given:
+  ObjectOutputStream o = new ObjectOutputStream (new FileOutputStream("data.dat"));
+  o.print('A');
+  o.close();
+  d.corrected:
+  ObjectOutputStream o = new ObjectOutputStream (new FileOutputStream("data.dat"));
+  o.writeChar('A');
+  o.close();
 ```
