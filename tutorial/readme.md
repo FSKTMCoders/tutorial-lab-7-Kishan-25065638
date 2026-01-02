@@ -175,8 +175,8 @@ Q2.
   a.close();
   c.corrected:
   int num;
-  Scanner a = new Scanner(new FileInputStream("data.dat"));
-  num = a.nextInt();
+  Scanner a = new Scanner(new ObjectInputStream("data.dat"));
+  num = a.readInt();
   a.close();
   
   d.given:
@@ -187,4 +187,65 @@ Q2.
   ObjectOutputStream o = new ObjectOutputStream (new FileOutputStream("data.dat"));
   o.writeChar('A');
   o.close();
+```
+
+```java
+//Q3.
+
+import java.util.Scanner;
+import java.io.PrintWriter;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.FileNotFoundException;
+
+public class Main{
+    public static void main(String[] args){
+        try{
+            PrintWriter pw= new PrintWriter(new FileOutputStream("data.txt"));
+            Scanner keyboard= new Scanner(System.in);
+            System.out.print("Enter a sentence: ");
+            String sentence= keyboard.nextLine();
+            for(int i=0; i<sentence.length(); i++){
+                char ch= sentence.charAt(i);
+                int ascii= (int) ch;
+                int binary[]= new int[8];
+                for(int j=7; j>=0; j--){
+                    binary[j]= ascii % 2;
+                    ascii= ascii / 2;
+                }
+                for(int k=0; k<8; k++){
+                    pw.print(binary[k]);
+                    System.out.print(binary[k]);
+                }
+                System.out.print(" ");
+                pw.print(" ");
+            }
+            pw.close();
+            System.out.println("\n"+"Sentence converted to binary and stored in data.txt");
+        }
+        catch(IOException e){
+            System.out.println("An error occurred: " + e.getMessage());
+        }
+        try{
+            Scanner sc= new Scanner(new FileInputStream("data.txt"));
+            System.out.print("The sentence in binary is: ");
+            while(sc.hasNext()){
+                String binaryStr= sc.next();
+                int ascii= 0;
+                for(int i=0; i<8; i++){
+                    int bit= Character.getNumericValue(binaryStr.charAt(i));
+                    ascii += bit * Math.pow(2, 7 - i);
+                }
+                char ch= (char) ascii;
+                System.out.print(ch);
+            }
+            System.out.println();
+            sc.close();
+        }
+        catch(FileNotFoundException e){
+            System.out.println("File not found: " + e.getMessage());
+        }
+    }
+}
 ```
