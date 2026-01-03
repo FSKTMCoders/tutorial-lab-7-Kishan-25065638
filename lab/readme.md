@@ -191,4 +191,65 @@ public class Main {
 
 ```java
 //Q6.
+import java.util.Scanner;
+import java.io.PrintWriter;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.FileNotFoundException;
+import java.util.NoSuchElementException;
+import java.util.ArrayList;
+import java.util.List;
+
+public class Main {
+    public static void main(String[] args) {
+        try{
+            Scanner psc= new Scanner(new FileInputStream("product.txt"));
+            Scanner osc= new Scanner(new FileInputStream("order.txt"));
+            List<String[]> productData = new ArrayList<>(); //list of lists
+            List<String[]> orderData = new ArrayList<>(); //list of lists
+
+            while(psc.hasNextLine()){
+                String line=psc.nextLine(); //read line from product file
+                String[] parts=line.split(","); //split line into parts. e.g: SK020 Enfagrow A+ 36 as ["SK020", "Enfagrow A+ 36", "45.50"]
+                productData.add(parts);  //adding that list to the list of lists. so now out array list is like [["SK020", "Enfagrow A+ 36", "45.50"]]
+            }
+
+            while(osc.hasNextLine()){
+                String line=osc.nextLine(); //read line from order file
+                String[] parts=line.split(","); //split line into parts. e.g: OD1001,SK020,2 as ["OD1001", "SK020", "2"]
+                orderData.add(parts);//adding that list to the list of lists. so now out array list is like [["OD1001", "SK020", "2"]]
+            }
+
+            psc.close();
+            osc.close();
+
+            for(int a=0;a<productData.size();a++){ //loop through product data, productData.size() gives number of products, here 7
+                for(int b=0;b<orderData.size();b++){ //loop through order data, orderData.size() gives number of orders, here 5
+                    if(productData.get(a)[0].equals(orderData.get(b)[1])){ //comparing productDATA's (a) iterating through all the lists in lists of lists at index 0 (ProductID) with orderData's (b) iterating through all the lists in lists of lists at index 1 (ProductID).
+                        String productID=productData.get(a)[0]; //getting product id from productData at index 0
+                        String productName=productData.get(a)[1]; //getting product name from productData at index 1
+                        double pricePerUnit=Double.parseDouble(productData.get(a)[2]); //getting price per unit from productData at index 2 and converting it to double
+                        int orderQuantity=Integer.parseInt(orderData.get(b)[2]); //getting order quantity from orderData at index 2 and converting it to integer
+                        double totalPrice=pricePerUnit*orderQuantity;
+
+                        System.out.println("ProductID: " + productID + ", ProductName: " + productName + ", OrderQuantity: " + orderQuantity + ", PricePerUnit: " + pricePerUnit + ", TotalPrice: " + totalPrice);
+                        PrintWriter pw=new PrintWriter(new FileOutputStream("merge.txt", true));
+                        pw.println("ProductID: " + productID + ", ProductName: " + productName + ", OrderQuantity: " + orderQuantity + ", PricePerUnit: " + pricePerUnit + ", TotalPrice: " + totalPrice);
+                        pw.close();
+                    }
+                }
+            }
+        }
+        catch(FileNotFoundException e){
+            System.out.println("File not found: " + e.getMessage());
+        }
+        catch(IOException e){
+            System.out.println("IO Exception: " + e.getMessage());
+        }
+        catch(NoSuchElementException e){
+            System.out.println(" ");
+        }
+    }
+}
 ```
